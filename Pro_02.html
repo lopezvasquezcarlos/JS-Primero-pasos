@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>PROGRAMA 02</title>
+</head>
+<body>
+
+    <p>Programa Calculadora IMC". <a href="index.html"  style="color:green;">Ir a la página</a></p>
+
+    <h1 style="color:blueviolet;">PROGRAMA DE CALIFICACIONES</h1>
+
+    <p style="color:red;">IMPORTANTE</p>
+    <ul>
+        <li>Ingresar la cantidad de alumnos evaluar, despues dar clic en  "CAPTURAR CALIFICACIONES"</li>
+        <li>ingresar el nombre del alumno</li>
+        <li>ingresar la calificación correspondiente</li>
+    </ul>
+
+    <label for="cantidadAlumnos">Cantidad de alumnos:</label>
+    <input type="number" id="cantidadAlumnos" min="1">
+    <button onclick="capturarCalificaciones()">CAPTURAR CALIFICACIONES</button>
+    <div id="resultado"></div>
+
+
+    <script>
+        function capturarCalificaciones() {
+            const cantidadAlumnos = parseInt(document.getElementById("cantidadAlumnos").value);
+            let alumnos = [];
+            let promedioGeneral = 0;
+            let aprobados = 0;
+            let reprobados = 0;
+
+            for (let i = 0; i < cantidadAlumnos; i++) {
+                const nombre = prompt("Ingrese el nombre del alumno " + (i + 1) + ":");
+                const calificacion = parseFloat(prompt("Ingrese la calificación del alumno " + (i + 1) + ":"));
+                alumnos.push({ nombre, calificacion });
+                promedioGeneral += calificacion;
+                if (calificacion >= 6) {
+                    aprobados++;
+                } else {
+                    reprobados++;
+                }
+            }
+
+            promedioGeneral /= cantidadAlumnos;
+
+            let resultado = "<h2>Resultados:</h2>";
+            resultado += "<p>Promedio general: " + promedioGeneral.toFixed(2) + "</p>";
+            resultado += "<p>Aprobados: " + aprobados + "</p>";
+            resultado += "<p>Reprobados: " + reprobados + "</p>";
+            resultado += "<table><tr><th>Nombre</th><th>Calificación</th><th>Resultado</th></tr>";
+            for (const alumno of alumnos) {
+                resultado += "<tr><td>" + alumno.nombre + "</td><td>" + alumno.calificacion + "</td><td>" + (alumno.calificacion >= 6 ? "Aprobado" : "Reprobado") + "</td></tr>";
+            }
+            resultado += "</table>";
+
+            document.getElementById("resultado").innerHTML = resultado;
+        }
+    </script>
+</body>
+</html>
